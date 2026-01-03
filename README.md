@@ -1,4 +1,5 @@
 # Understanding IDA Funding: Insights from SQL Analysis
+![WorldBank](/images/image1.png)
 
 ## Exploring IDA Funding with SQL
 When countries don’t have enough resources to fund public services and infrastructure on their own, organizations like IDA step in to help. IDA provides low-interest loans so countries can invest in things like education, health, energy and infrastructure.
