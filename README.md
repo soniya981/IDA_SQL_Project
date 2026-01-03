@@ -1,1 +1,1 @@
-#Understanding IDA Funding: Insights from SQL Analysis
+# Understanding IDA Funding: Insights from SQL Analysis
