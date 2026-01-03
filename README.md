@@ -19,3 +19,92 @@ Having sum(Original_Principal_Amount_US) >1000000000
 Order by Utilization Asc,total_commitment_usd DESC;
 ```
 **Objective:** First, I checked which countries had a lot of money approved but hadn’t used much of it yet. Some countries had utilization rates close to 55–60%, even though billions were approved. That made me think about delays, capacity issues, or projects that haven’t fully started.
+
+### 2. Countries that owe the most to IDA
+```sql
+Select
+	Country_Economy,
+	sum(Due_to_IDA_US) as Due_Amount 
+from banking_data_tbl
+Group by Country_Economy
+Order by Due_amount DESC;
+```
+**Objective:** Next, I looked at how much countries still owe. Countries like Bangladesh, Pakistan, Nigeria, and Ethiopia stood out and it shows where IDA’s financial exposure is highest.
+
+### 3. Bangladesh as a case study
+```sql
+Select
+ Count(distinct Project_ID) as Total_Projects 
+from banking_data_tbl 
+where "Country_Economy" =  'Bangladesh';
+```
+**Objective:** I used Bangladesh as a closer example and found it manages over 300 projects. That’s a lot to coordinate, which helps explain why utilization and repayment patterns can vary.
+I also looked at which projects appear most often and which ones received the most funding. A few large projects account for a big share of the total spending.
+
+### 4. Which projects have received the highest disbursed funding?
+```sql
+Select Country_Economy , Project_Name, Sum(Disbursed_Amount_US) as Total_Fund_Spent
+from banking_data_tbl
+Group by Country_Economy , Project_Name
+order by Total_Fund_Spent Desc; 
+```
+**Objective:** Looking globally, only a small number of projects take up a large portion of IDA funding. The PEACE in Ukraine Project stood out the most, along with several large projects in Ethiopia, Nigeria, and India.
+
+### 5. Average Service charge rate for all credits over the year
+```sql
+Select 
+year(Try_Convert(date, Board_Approval_Date)) as Approval_Date,
+AVG(Service_Charge_Rate) as Average_Service_Charge_Rate
+from banking_data_tbl
+Group by year(Try_Convert(date, Board_Approval_Date))
+order by Approval_Date Desc;  
+```
+**Objective:** I checked how service charge rates changed over time and noticed they’ve been going down. This suggests IDA is making loans more affordable, especially for countries that are already under financial stress.
+
+### 6. Which sectors get the most funding?
+```sql
+SELECT
+    CASE
+        WHEN Project_Name LIKE '%Health%' 
+          OR Project_Name LIKE '%Hospital%' THEN 'Health'
+        WHEN Project_Name LIKE '%Road%' 
+          OR Project_Name LIKE '%Transport%' 
+          OR Project_Name LIKE '%Highway%' THEN 'Infrastructure'
+        WHEN Project_Name LIKE '%Energy%' 
+          OR Project_Name LIKE '%Power%' THEN 'Energy'
+        WHEN Project_Name LIKE '%Water%' THEN 'Water & Sanitation'
+        ELSE 'Other'
+    END AS sector,
+    SUM(Disbursed_Amount_US) AS total_disbursed_usd
+FROM banking_data_tbl
+GROUP BY
+    CASE
+        WHEN Project_Name LIKE '%Health%' 
+          OR Project_Name LIKE '%Hospital%' THEN 'Health'
+        WHEN Project_Name LIKE '%Road%' 
+          OR Project_Name LIKE '%Transport%' 
+          OR Project_Name LIKE '%Highway%' THEN 'Infrastructure'
+        WHEN Project_Name LIKE '%Energy%' 
+          OR Project_Name LIKE '%Power%' THEN 'Energy'
+        WHEN Project_Name LIKE '%Water%' THEN 'Water & Sanitation'
+        ELSE 'Other'
+    END
+ORDER BY total_disbursed_usd DESC; 
+```
+**Objective:** Since there was no sector column, I grouped projects based on keywords in their names. Infrastructure and energy projects received the most funding, followed by water, sanitation, and health.
+
+### 7:  Which countries have high debt relative to their approved commitments?
+```sql
+Select Country_Economy,
+sum(Original_Principal_Amount_US) as Approved,
+sum(Due_to_IDA_US) as Due,
+Round(sum(Due_to_IDA_US) / sum(Original_Principal_Amount_US),2) as Ratio
+from banking_data_tbl
+Group by Country_Economy
+order by ratio DESC
+```
+**Objective:**
+
+
+
+
