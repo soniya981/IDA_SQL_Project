@@ -1,11 +1,11 @@
 # Understanding IDA Funding: Insights from SQL Analysis
 
 ## Exploring IDA Funding with SQL
-When countries don’t have enough resources to fund public services and infrastructure on their own, organizations like IDA step in to help. IDA provides low-interest loans and grants so countries can invest in things like education, health, energy, and infrastructure.
-In this project, I used SQL to explore IDA financial data and understand where the money goes, how much is being used, and where problems might exist.
+When countries don’t have enough resources to fund public services and infrastructure on their own, organizations like IDA step in to help. IDA provides low-interest loans so countries can invest in things like education, health, energy and infrastructure.
+In this project, I used SQL to explore IDA financial data and understand where the money goes, how much is being used and where problems might exist.
 
 ## The Data
-I worked with the most recent IDA Statement of Credits and Grants dataset, which has about 10,400 rows and 30 columns. Each row represents a loan or grant, along with details like the country, project name, amount approved, amount disbursed, amount still owed, service charge rate, and region.
+I worked with the most recent IDA Statement of Credits and Grants dataset, which has about 10,400 rows and 30 columns. Each row represents a loan, along with details like the country, project name, amount approved, amount disbursed, amount still owed, service charge rate and region.
 After getting familiar with the data, I started asking questions that move from big picture to specific risks.
 - **Dataset Link:** (https://financesone.worldbank.org/ida-statement-of-credits-grants-and-guarantees-latest-available-snapshot/DS00001)
 
@@ -24,7 +24,7 @@ Group by Country_Economy_Code, Country_Economy
 Having sum(Original_Principal_Amount_US) >1000000000
 Order by Utilization Asc,total_commitment_usd DESC;
 ```
-**Objective:** First, I checked which countries had a lot of money approved but hadn’t used much of it yet. Some countries had utilization rates close to 55–60%, even though billions were approved. That made me think about delays, capacity issues, or projects that haven’t fully started.
+**Objective:** First, I checked which countries had a lot of money approved but hadn’t used much of it yet. Some countries had utilization rates close to 55–60%, even though billions were approved. That made me think about delays, capacity issues or projects that haven’t fully started.
 
 ### 2. Countries that owe the most to IDA
 ```sql
@@ -35,7 +35,7 @@ from banking_data_tbl
 Group by Country_Economy
 Order by Due_amount DESC;
 ```
-**Objective:** Next, I looked at how much countries still owe. Countries like Bangladesh, Pakistan, Nigeria, and Ethiopia stood out and it shows where IDA’s financial exposure is highest.
+**Objective:** Next, I looked at how much countries still owe. Countries like Bangladesh, Pakistan, Nigeria and Ethiopia stood out and it shows where IDA’s financial exposure is highest.
 
 ### 3. Bangladesh as a case study
 ```sql
@@ -57,7 +57,7 @@ from banking_data_tbl
 Group by Country_Economy , Project_Name
 order by Total_Fund_Spent Desc; 
 ```
-**Objective:** Looking globally, only a small number of projects take up a large portion of IDA funding. The PEACE in Ukraine Project stood out the most, along with several large projects in Ethiopia, Nigeria, and India.
+**Objective:** Looking globally, only a small number of projects take up a large portion of IDA funding. The PEACE in Ukraine Project stood out the most, along with several large projects in Ethiopia, Nigeria and India.
 
 ### 5. Average Service charge rate for all credits over the year
 ```sql
