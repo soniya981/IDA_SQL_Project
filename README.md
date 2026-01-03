@@ -48,7 +48,8 @@ Select
 from banking_data_tbl 
 where "Country_Economy" =  'Bangladesh';
 ```
-(/images/3.png)
+ ![Question 3](/images/3.png)
+ 
 **Objective:** I used Bangladesh as a closer example and found it manages over 300 projects. That’s a lot to coordinate, which helps explain why utilization and repayment patterns can vary.
 I also looked at which projects appear most often and which ones received the most funding. A few large projects account for a big share of the total spending.
 
@@ -62,7 +63,7 @@ from banking_data_tbl
 Group by Country_Economy , Project_Name
 order by Total_Fund_Spent Desc; 
 ```
-(/images/4.png)
+ ![Question 4](/images/4.png)
 
 **Objective:** Looking globally, only a small number of projects take up a large portion of IDA funding. The PEACE in Ukraine Project stood out the most, along with several large projects in Ethiopia, Nigeria and India.
 
@@ -75,7 +76,7 @@ from banking_data_tbl
 Group by year(Try_Convert(date, Board_Approval_Date))
 order by Approval_Date Desc;  
 ```
-(/images/5.png)
+ ![Question 5](/images/5.png)
 
 **Objective:** I checked how service charge rates changed over time and noticed they’ve been going down. This suggests IDA is making loans more affordable, especially for countries that are already under financial stress.
 
@@ -109,7 +110,7 @@ GROUP BY
     END
 ORDER BY total_disbursed_usd DESC; 
 ```
-(/images/6.png)
+ ![Question 6](/images/6.png)
 
 **Objective:** Since there was no sector column, I grouped projects based on keywords in their names. Infrastructure and energy projects received the most funding, followed by water, sanitation, and health.
 
@@ -124,7 +125,7 @@ from banking_data_tbl
 Group by Country_Economy
 order by ratio DESC
 ```
-(/images/7.png)
+ ![Question 7](/images/7.png)
 
 **Objective:** This ratio helped highlight countries where a large portion of approved funding is still unpaid. Countries like Ukraine and Lebanon had high ratios, meaning most of their approved funds remain outstanding. This doesn’t automatically mean risk, but it does raise important questions about future repayment and debt pressure.
 
