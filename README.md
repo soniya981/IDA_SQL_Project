@@ -25,6 +25,7 @@ Having sum(Original_Principal_Amount_US) >1000000000
 Order by Utilization Asc,total_commitment_usd DESC;
 ```
  ![Question 1](/images/1.png)
+ 
 **Objective:** First, I checked which countries had a lot of money approved but hadn’t used much of it yet. Some countries had utilization rates close to 55–60%, even though billions were approved. That made me think about delays, capacity issues or projects that haven’t fully started.
 
 ### 2. Countries that owe the most to IDA
@@ -36,7 +37,8 @@ from banking_data_tbl
 Group by Country_Economy
 Order by Due_amount DESC;
 ```
-(/images/2.png)
+ ![Question 2](/images/2.png)
+ 
 **Objective:** Next, I looked at how much countries still owe. Countries like Bangladesh, Pakistan, Nigeria and Ethiopia stood out and it shows where IDA’s financial exposure is highest.
 
 ### 3. Bangladesh as a case study
