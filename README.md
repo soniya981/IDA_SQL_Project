@@ -34,7 +34,7 @@ Order by Due_amount DESC;
 ### 3. Bangladesh as a case study
 ```sql
 Select
- Count(distinct Project_ID) as Total_Projects 
+	Count(distinct Project_ID) as Total_Projects 
 from banking_data_tbl 
 where "Country_Economy" =  'Bangladesh';
 ```
@@ -43,7 +43,10 @@ I also looked at which projects appear most often and which ones received the mo
 
 ### 4. Which projects have received the highest disbursed funding?
 ```sql
-Select Country_Economy , Project_Name, Sum(Disbursed_Amount_US) as Total_Fund_Spent
+Select
+	Country_Economy,
+	Project_Name,
+	Sum(Disbursed_Amount_US) as Total_Fund_Spent
 from banking_data_tbl
 Group by Country_Economy , Project_Name
 order by Total_Fund_Spent Desc; 
@@ -53,8 +56,8 @@ order by Total_Fund_Spent Desc;
 ### 5. Average Service charge rate for all credits over the year
 ```sql
 Select 
-year(Try_Convert(date, Board_Approval_Date)) as Approval_Date,
-AVG(Service_Charge_Rate) as Average_Service_Charge_Rate
+	year(Try_Convert(date, Board_Approval_Date)) as Approval_Date,
+	AVG(Service_Charge_Rate) as Average_Service_Charge_Rate
 from banking_data_tbl
 Group by year(Try_Convert(date, Board_Approval_Date))
 order by Approval_Date Desc;  
@@ -95,16 +98,29 @@ ORDER BY total_disbursed_usd DESC;
 
 ### 7:  Which countries have high debt relative to their approved commitments?
 ```sql
-Select Country_Economy,
-sum(Original_Principal_Amount_US) as Approved,
-sum(Due_to_IDA_US) as Due,
-Round(sum(Due_to_IDA_US) / sum(Original_Principal_Amount_US),2) as Ratio
+Select
+	Country_Economy,
+	sum(Original_Principal_Amount_US) as Approved,
+	sum(Due_to_IDA_US) as Due,
+	Round(sum(Due_to_IDA_US) / sum(Original_Principal_Amount_US),2) as Ratio
 from banking_data_tbl
 Group by Country_Economy
 order by ratio DESC
 ```
-**Objective:**
+**Objective:** This ratio helped highlight countries where a large portion of approved funding is still unpaid. Countries like Ukraine and Lebanon had high ratios, meaning most of their approved funds remain outstanding. This doesn’t automatically mean risk, but it does raise important questions about future repayment and debt pressure.
 
+## Major Findings
 
+- Several countries have high approved funding but low utilization, suggesting delays or implementation challenges
+- IDA’s debt exposure is concentrated in a small number of countries
+- A few large projects account for a major share of total disbursements
+- Service charge rates have decreased over time, making loans more affordable
+- Infrastructure and energy dominate sector-level funding
+- Countries with high debt-to-commitment ratios may face higher repayment pressure in the future
 
+## Closing Thoughts
+
+This project really showed me how much you can learn once you stop just looking at totals and start asking better questions. Using SQL made it easy to dig deeper and see patterns that aren’t obvious at first glance—like where money is sitting unused, which projects take up most of the funding, and which countries are carrying a lot of debt.
+What started as simple queries slowly turned into a bigger story about how funding flows, where things move smoothly, and where they don’t. I also liked how each question led naturally to the next one, making the analysis feel more like problem-solving than just running code.
+Overall, this was a fun way to practice SQL while working with meaningful data, and it definitely made me more confident in using data to explain what’s actually going on beneath the surface
 
