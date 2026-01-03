@@ -24,7 +24,7 @@ Group by Country_Economy_Code, Country_Economy
 Having sum(Original_Principal_Amount_US) >1000000000
 Order by Utilization Asc,total_commitment_usd DESC;
 ```
-(/images/1.png)
+ ![Question 1](/images/1.png)
 **Objective:** First, I checked which countries had a lot of money approved but hadn’t used much of it yet. Some countries had utilization rates close to 55–60%, even though billions were approved. That made me think about delays, capacity issues or projects that haven’t fully started.
 
 ### 2. Countries that owe the most to IDA
